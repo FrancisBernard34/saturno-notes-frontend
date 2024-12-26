@@ -7,7 +7,7 @@ export const Container = styled.div`
 
   display: grid;
   grid-template-columns: 250px auto;
-  grid-template-rows: 105px 128px auto 64px;
+  grid-template-rows: 105px 128px auto 80px;
   grid-template-areas:
     "brand header"
     "menu search"
@@ -15,6 +15,22 @@ export const Container = styled.div`
     "newnote content";
 
   background-color: ${(props) => props.theme.COLORS.BACKGROUND_800};
+
+  @media (max-width: 768px) {
+    grid-template-columns: 100%;
+    grid-template-rows: 70px auto auto 1fr 80px;
+    grid-template-areas:
+      "brand"
+      "header"
+      "search"
+      "content"
+      "newnote";
+    
+    /* Menu will be handled by a separate mobile menu component */
+    .menu {
+      display: none;
+    }
+  }
 `;
 
 export const Brand = styled.div`
@@ -34,6 +50,12 @@ export const Brand = styled.div`
     font-size: 24px;
     color: ${(props) => props.theme.COLORS.ORANGE};
   }
+
+  @media (max-width: 768px) {
+    > h1 {
+      font-size: 20px;
+    }
+  }
 `;
 
 export const Menu = styled.ul`
@@ -47,17 +69,30 @@ export const Menu = styled.ul`
   > li {
     margin-bottom: 24px;
   }
+
+  @media (max-width: 768px) {
+    display: none; /* Hide the default menu on mobile */
+  }
 `;
 
 export const Search = styled.div`
   grid-area: search;
   padding: 64px 64px 0;
+
+  @media (max-width: 768px) {
+    padding: 24px 16px 0;
+  }
 `;
 
 export const Content = styled.div`
   grid-area: content;
   padding: 0 64px;
   overflow-y: auto;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
 `;
 
 export const NewNote = styled(Link)`
@@ -66,12 +101,32 @@ export const NewNote = styled(Link)`
   background-color: ${(props) => props.theme.COLORS.ORANGE};
   color: ${(props) => props.theme.COLORS.BACKGROUND_900};
   border: none;
+  font-weight: 500;
+  font-size: 16px;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   > svg {
-    margin-right: 8px;
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.COLORS.ORANGE_DARK || '#FF6B21'};
+  }
+
+  @media (max-width: 768px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    font-size: 18px;
+    
+    > svg {
+      font-size: 24px;
+    }
   }
 `;

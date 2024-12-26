@@ -13,7 +13,13 @@ export const Container = styled.div`
   > main {
     grid-area: content;
     overflow-y: scroll;
-    padding: 64px 0;
+    padding: 64px 32px;
+  }
+
+  @media (max-width: 768px) {
+    > main {
+      padding: 32px 16px;
+    }
   }
 `;
 
@@ -36,19 +42,39 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
-  > button:first-child {
-    align-self: end;
-  }
-
   > h1 {
     font-size: 36px;
     font-weight: 500;
     padding-top: 64px; 
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+      padding-top: 32px;
+    }
   }
 
-  > P {
+  > p {
     font-size: 16px;
     margin-top: 16px;
-    text-align: justify;
+
+    @media (max-width: 768px) {
+      font-size: 15px;
+    }
+  }
+
+  .delete-button {
+    align-self: center;
+    margin-top: 32px;
+    color: ${({ theme }) => theme.COLORS.RED};
+    background: none;
+    
+    &:hover {
+      color: #FF4D4D; /* Brighter red on hover */
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 24px;
+    }
   }
 `;

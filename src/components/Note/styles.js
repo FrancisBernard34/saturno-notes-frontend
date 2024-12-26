@@ -16,11 +16,22 @@ export const Container = styled.button`
     font-weight: 700;
     font-size: 24px;
     color: ${({ theme }) => theme.COLORS.WHITE};
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   > footer {
     width: 100%;
     display: flex;
     margin-top: 24px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    margin-bottom: 12px;
   }
 `;

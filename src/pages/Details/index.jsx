@@ -43,7 +43,11 @@ export default function Details() {
       {data && (
         <main>
           <Content>
-            <ButtonText title="Excluir nota" onClick={handleRemove} />
+            <ButtonText 
+              title="Excluir nota" 
+              onClick={handleRemove} 
+              className="delete-button" 
+            />
 
             <h1>{data.title}</h1>
 

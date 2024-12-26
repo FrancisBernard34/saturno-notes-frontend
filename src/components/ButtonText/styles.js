@@ -6,4 +6,8 @@ export const Container = styled.button`
 
   border: none;
   font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 20px; // Increased font size for mobile
+  }
 `;

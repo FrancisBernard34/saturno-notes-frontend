@@ -26,11 +26,22 @@ export default function New() {
 
   const navigate = useNavigate();
 
+  // Character limits
+  const LIMITS = {
+    TITLE: 50,
+    DESCRIPTION: 300,
+    LINK: 100,
+    TAG: 20
+  };
+
   function handleBack() {
     navigate(-1);
   }
 
   function handleAddLink() {
+    if (newLink.length > LIMITS.LINK) {
+      return alert(`Link must be no more than ${LIMITS.LINK} characters.`);
+    }
     setLinks((prev) => [...prev, newLink]);
     setNewLink("");
   }
@@ -40,6 +51,9 @@ export default function New() {
   }
 
   function handleAddTag() {
+    if (newTag.length > LIMITS.TAG) {
+      return alert(`Tag must be no more than ${LIMITS.TAG} characters.`);
+    }
     setTags((prev) => [...prev, newTag]);
     setNewTag("");
   }
@@ -53,21 +67,38 @@ export default function New() {
       return alert("Você precisa adicionar um título para a nota.");
     }
 
+    if (title.length > LIMITS.TITLE) {
+      return alert(`Título deve ter no máximo ${LIMITS.TITLE} caracteres.`);
+    }
+
+    if (description.length > LIMITS.DESCRIPTION) {
+      return alert(`Descrição deve ter no máximo ${LIMITS.DESCRIPTION} caracteres.`);
+    }
+
     if (newTag || newLink) {
       return alert(
        "Você precisa adicionar a nova tag e/ou o novo link se quiser salvá-los. Clique para adicionar ou deixe o campo vazio."
       );
     }
 
-    await api.post("/notes", {
-      title,
-      description,
-      tags,
-      links,
-    });
+    try {
+      const response = await api.post("/notes", {
+        title,
+        description,
+        tags,
+        links,
+      });
 
-    alert("Nota criada com sucesso!");
-    navigate(-1);
+      console.log('API Response:', response.data);
+      
+      if (response.data) {
+        alert("Nota criada com sucesso!");
+        navigate(-1);
+      }
+    } catch (error) {
+      console.error('Error creating note:', error.response?.data || error.message);
+      alert("Erro ao criar a nota. Por favor, tente novamente.");
+    }
   }
 
   return (
@@ -82,12 +113,20 @@ export default function New() {
           </header>
 
           <Input
-            placeholder="Título"
-            onChange={(e) => setTitle(e.target.value)}
+            placeholder={`Título (máx. ${LIMITS.TITLE} caracteres)`}
+            onChange={(e) => {
+              const value = e.target.value.slice(0, LIMITS.TITLE);
+              setTitle(value);
+            }}
+            value={title}
           />
           <Textarea
-            placeholder="Observações"
-            onChange={(e) => setDescription(e.target.value)}
+            placeholder={`Observações (máx. ${LIMITS.DESCRIPTION} caracteres)`}
+            onChange={(e) => {
+              const value = e.target.value.slice(0, LIMITS.DESCRIPTION);
+              setDescription(value);
+            }}
+            value={description}
           />
 
           <Section title="Links úteis">
@@ -100,9 +139,12 @@ export default function New() {
             ))}
             <NoteItem
               isNew
-              placeholder="Novo link"
+              placeholder={`Novo link (máx. ${LIMITS.LINK} caracteres)`}
               value={newLink}
-              onChange={(e) => setNewLink(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.slice(0, LIMITS.LINK);
+                setNewLink(value);
+              }}
               onClick={handleAddLink}
             />
           </Section>
@@ -119,8 +161,11 @@ export default function New() {
 
               <NoteItem
                 isNew
-                placeholder="Nova tag"
-                onChange={(e) => setNewTag(e.target.value)}
+                placeholder={`Nova tag (máx. ${LIMITS.TAG} caracteres)`}
+                onChange={(e) => {
+                  const value = e.target.value.slice(0, LIMITS.TAG);
+                  setNewTag(value);
+                }}
                 value={newTag}
                 onClick={handleAddTag}
               />

@@ -10,6 +10,7 @@ import Input from "../../components/Input";
 import Note from "../../components/Note";
 import Section from "../../components/Section";
 import ButtonText from "../../components/ButtonText";
+import { MobileMenu } from "../../components/MobileMenu";
 
 export default function Home() {
   const [search, setSearch] = useState("");
@@ -50,6 +51,28 @@ export default function Home() {
     })();
   }, [tagsSelected, search]);
 
+  const menuContent = (
+    <>
+      <li>
+        <ButtonText
+          title="Todos"
+          onClick={() => setTagsSelected([])}
+          $isactive={tagsSelected.length === 0}
+        />
+      </li>
+      {tags &&
+        tags.map((tag) => (
+          <li key={String(tag.id)}>
+            <ButtonText
+              title={tag.name}
+              onClick={() => handleTagSelected(tag.name)}
+              $isactive={tagsSelected.includes(tag.name)}
+            />
+          </li>
+        ))}
+    </>
+  );
+
   return (
     <Container>
       <Brand>
@@ -59,24 +82,12 @@ export default function Home() {
       <Header />
 
       <Menu>
-        <li>
-          <ButtonText
-            title="Todos"
-            onClick={() => setTagsSelected([])}
-            $isactive={tagsSelected.length === 0}
-          />
-        </li>
-        {tags &&
-          tags.map((tag) => (
-            <li key={String(tag.id)}>
-              <ButtonText
-                title={tag.name}
-                onClick={() => handleTagSelected(tag.name)}
-                $isactive={tagsSelected.includes(tag.name)}
-              />
-            </li>
-          ))}
+        {menuContent}
       </Menu>
+
+      <MobileMenu>
+        {menuContent}
+      </MobileMenu>
 
       <Search>
         <Input
