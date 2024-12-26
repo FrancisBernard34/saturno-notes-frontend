@@ -10,6 +10,24 @@ import ButtonText from "../../components/ButtonText";
 import Section from "../../components/Section";
 import Tag from "../../components/Tag";
 
+function ensureAbsoluteUrl(url) {
+  if (!url) return '#';
+  
+  try {
+    new URL(url);
+    return url;
+  } catch {
+    // If the URL is not valid, try to make it absolute
+    if (url.startsWith('//')) {
+      return `https:${url}`;
+    }
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `https://${url}`;
+    }
+    return url;
+  }
+}
+
 export default function Details() {
   const [data, setData] = useState(null);
 
@@ -58,7 +76,11 @@ export default function Details() {
                 <Links>
                   {data.links.map((link) => (
                     <li key={String(link.id)}>
-                      <a href={link.url} target="_blank" rel="noreferrer">
+                      <a 
+                        href={ensureAbsoluteUrl(link.url)} 
+                        target="_blank" 
+                        rel="noreferrer noopener"
+                      >
                         {link.url}
                       </a>
                     </li>

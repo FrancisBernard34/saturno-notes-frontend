@@ -42,7 +42,21 @@ export default function New() {
     if (newLink.length > LIMITS.LINK) {
       return alert(`Link must be no more than ${LIMITS.LINK} characters.`);
     }
-    setLinks((prev) => [...prev, newLink]);
+
+    // Validate and format the URL
+    let formattedUrl = newLink.trim();
+    
+    try {
+      // Try to create a URL object to validate
+      new URL(formattedUrl);
+    } catch {
+      // If not a valid URL, try to make it absolute
+      if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+        formattedUrl = `https://${formattedUrl}`;
+      }
+    }
+
+    setLinks((prev) => [...prev, formattedUrl]);
     setNewLink("");
   }
 
