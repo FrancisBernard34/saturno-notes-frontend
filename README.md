@@ -1,4 +1,3 @@
-
 # Saturno Notes
 
 **Saturno Notes** é um site onde os usuários podem criar, organizar e salvar suas notas. A aplicação oferece funcionalidades de autenticação de usuário para manter as notas salvas, atribuição de categorias e tags para melhor organização das notas, e personalização de perfil para alteração de foto e dados cadastrais.
@@ -54,6 +53,20 @@ Para rodar o projeto localmente, siga os seguintes passos:
    ```
 
 5. Acesse a aplicação no seu navegador em [http://localhost:3000](http://localhost:3000).
+
+## Screenshots
+
+### Mobile Views
+
+| Home Screen | Profile Screen | View Note | Create Note |
+|------------|----------------|-----------|-------------|
+| ![Home Screen Mobile](https://i.ibb.co/ngzPypw/Home-Screen-Mobile.png) | ![Profile Screen Mobile](https://i.ibb.co/DDxkPGr/Profile-Screen-Mobile.png) | ![View Note Mobile](https://i.ibb.co/hVrQz3m/View-Note-Mobile.png) | ![Create Note Mobile](https://i.ibb.co/XtHFTMG/Create-Note-Screen-Mobile.png) |
+
+### Desktop Views
+
+| Home Screen | Profile Screen | View Note | Create Note |
+|------------|----------------|-----------|-------------|
+| ![Home Screen Desktop](https://i.ibb.co/zXjnjR0/Home-Screen-Desktop.png) | ![Profile Screen Desktop](https://i.ibb.co/hW6c1fT/Profile-Screen-Desktop.png) | ![View Note Desktop](https://i.ibb.co/BKTz4W2/View-Note-Desktop.png) | ![Create Note Desktop](https://i.ibb.co/YhdPdf5/Create-Note-Screen-Desktop.png) |
 
 ## Scripts
 
